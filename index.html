@@ -868,12 +868,6 @@ Website: http://emilcarlsson.se/
                                 <p class="name">Chat Bot</p>
                                 <p class="preview">Mình là UIT bot, mình có thể giúp gì cho bạn không ?</p>
                             </div>
-                            <br><br><br><br>
-                            <div class="meta">
-                                <img style="background-color: white;" src="https://banner2.cleanpng.com/20180402/ysw/kisspng-computer-icons-test-survey-5ac2cf57df8907.6438385715227165039156.jpg" alt="" />
-                                <p class="name">Các bạn có hài lòng với chatbot không?</p>
-                                <div class="preview">Bấm vào <a href="https://www.facebook.com/home.php" target="_blank"><strong > đây</strong></a> để thực hiện khảo sát</div>
-                            </div>
                         </div>
                     </li>
                 </ul>
@@ -908,53 +902,53 @@ Website: http://emilcarlsson.se/
             <div class="message-input">
                 <div class="wrap">
                     <input type="text" placeholder="Gõ chuyên viên tư vấn để gặp chuyên viên tư vấn" />
-                    <i class=" fa fa-paperclip attachment " aria-hidden="true "></i>
-                    <button class="submit "><i class="fa fa-paper-plane " aria-hidden="true "></i></button>
+                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                    <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        $(".messages ").animate({
-            scrollTop: $(".messages ")[0]['scrollHeight']
+        $(".messages").animate({
+            scrollTop: $(".messages")[0]['scrollHeight']
         });
 
-        $("#profile-img ").click(function() {
-            $("#status-options ").toggleClass("active ");
+        $("#profile-img").click(function() {
+            $("#status-options").toggleClass("active");
         });
 
-        $("#status-options ul li ").click(function() {
-            $("#profile-img ").removeClass();
-            $("#status-online ").removeClass("active ");
-            $("#status-away ").removeClass("active ");
-            $("#status-busy ").removeClass("active ");
-            $("#status-offline ").removeClass("active ");
-            $(this).addClass("active ");
+        $("#status-options ul li").click(function() {
+            $("#profile-img").removeClass();
+            $("#status-online").removeClass("active");
+            $("#status-away").removeClass("active");
+            $("#status-busy").removeClass("active");
+            $("#status-offline").removeClass("active");
+            $(this).addClass("active");
 
-            if ($("#status-online ").hasClass("active ")) {
-                $("#profile-img ").addClass("online ");
-            } else if ($("#status-away ").hasClass("active ")) {
-                $("#profile-img ").addClass("away ");
-            } else if ($("#status-busy ").hasClass("active ")) {
-                $("#profile-img ").addClass("busy ");
-            } else if ($("#status-offline ").hasClass("active ")) {
-                $("#profile-img ").addClass("offline ");
+            if ($("#status-online").hasClass("active")) {
+                $("#profile-img").addClass("online");
+            } else if ($("#status-away").hasClass("active")) {
+                $("#profile-img").addClass("away");
+            } else if ($("#status-busy").hasClass("active")) {
+                $("#profile-img").addClass("busy");
+            } else if ($("#status-offline").hasClass("active")) {
+                $("#profile-img").addClass("offline");
             } else {
-                $("#profile-img ").removeClass();
+                $("#profile-img").removeClass();
             };
 
-            $("#status-options ").removeClass("active ");
+            $("#status-options").removeClass("active");
         });
 
         function newMessage(message) {
             if ($.trim(message) == '') {
                 return false;
             }
-            $('<li class="sent "><img src="../assets/images/me.jpg " alt=" " /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+            $('<li class="sent"><img src="../assets/images/me.jpg" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
             $('.message-input input').val(null);
             $('.contact.active .preview').html('<span>You: </span>' + message);
-            $(".messages ").animate({
-                scrollTop: $(".messages ")[0]['scrollHeight']
+            $(".messages").animate({
+                scrollTop: $(".messages")[0]['scrollHeight']
             });
         };
 
@@ -972,32 +966,39 @@ Website: http://emilcarlsson.se/
                 return False;
             }
             $.ajax({
-                    url: "http://192.168.1.125:8080/api/get_answer ",
-                    type: "POST ",
-                    dataType: "json ",
-                    data: {
-                        session: token_global,
-                        question: message
-                    }
-                }).done(function(result) {
-                        ans = result["answer "];
-                        list_ans = ans.split("\n ")
-                        ans_br = list_ans.join("</br>") $(' <
-                            li class = "replies" > < img src = "./assets/images/cb.png"
-                            alt = "" / >
-                            <
-                            p > ' + ans_br + ' < /p> < /
-                            li > ').appendTo($('.messages ul ')); $('.contact.active.preview ').html(ans); $(".messages").animate({ scrollTop: $(".messages")[0]['
-                            scrollHeight '] }); }); } $('.submit ').click(function() { message = $(".message-input input").val(); newMessage(message);
-                            reply(message);
-                        }); $(window).on('keydown', function(e) {
-                        if (e.which == 13) {
-                            message = $(".message-input input").val();
-                            newMessage(message);
-                            reply(message);
-                            return false;
-                        }
-                    });
+                url: "https://4585-42-116-6-43.ap.ngrok.io/api/get_answer",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    session: token_global,
+                    question: message
+                }
+            }).done(function(result) {
+                ans = result["answer"];
+                list_ans = ans.split("\n")
+                ans_br = list_ans.join("</br>")
+                $('<li class="replies"><img src="./assets/images/cb.png" alt="" /><p>' + ans_br + '</p></li>').appendTo($('.messages ul'));
+                $('.contact.active .preview').html(ans);
+                $(".messages").animate({
+                    scrollTop: $(".messages")[0]['scrollHeight']
+                });
+            });
+        }
+
+        $('.submit').click(function() {
+            message = $(".message-input input").val();
+            newMessage(message);
+            reply(message);
+        });
+
+        $(window).on('keydown', function(e) {
+            if (e.which == 13) {
+                message = $(".message-input input").val();
+                newMessage(message);
+                reply(message);
+                return false;
+            }
+        });
     </script>
 </body>
 
